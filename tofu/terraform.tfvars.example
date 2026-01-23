@@ -1,0 +1,38 @@
+k3_configs = {
+  node1 = {
+    target_node         = "pve"
+    vm_name             = "k3s-node-1"
+    cloud_init_template = "ubuntu-2404-cloudinit"
+    vm_memory           = 2048
+    vm_cores            = 2
+    vm_state            = "started"
+    vm_disk_size        = 20
+    bridge_network      = "vmbr0"
+    ip                  = "ip=192.168.10.101/24,gw=192.168.10.1"
+    ssh_keys            = ["ssh-rsa AAAA... user@example.com"]
+  }
+  node2 = {
+    target_node         = "pve"
+    vm_name             = "k3s-node-2"
+    cloud_init_template = "ubuntu-2404-cloudinit"
+    vm_memory           = 2048
+    vm_cores            = 2
+    vm_state            = "started"
+    vm_disk_size        = 20
+    bridge_network      = "vmbr0"
+    ip                  = "ip=192.168.10.102/24,gw=192.168.10.1"
+    ssh_keys            = ["ssh-rsa AAAA... user@example.com"]
+  }
+  node3 = {
+    target_node         = "pve"
+    vm_name             = "k3s-node-3"
+    cloud_init_template = "ubuntu-2404-cloudinit"
+    vm_memory           = 2048
+    vm_cores            = 2
+    vm_state            = "started"
+    vm_disk_size        = 20
+    bridge_network      = "vmbr0"
+    ip                  = "ip=192.168.10.103/24,gw=192.168.10.1"
+    ssh_keys            = ["ssh-rsa AAAA... user@example.com"]
+  }
+}
