@@ -29,6 +29,7 @@ resource "proxmox_vm_qemu" "k3s_vm" {
     model  = "virtio"
     bridge = var.k3s_config.bridge_network
     tag = 0
+    macaddr = var.k3s_config.mac_address
   }
   ipconfig0 = var.k3s_config.ip
   sshkeys = join("\n", var.k3s_config.ssh_keys)
@@ -50,6 +51,10 @@ resource "proxmox_vm_qemu" "k3s_vm" {
         }
       }
     }
+  }
+  serial {
+    id   = 0
+    type = "socket"
   }
 
   startup_shutdown {

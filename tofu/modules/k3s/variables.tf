@@ -10,6 +10,7 @@ variable "k3s_config" {
     vm_disk_size = number
     bridge_network = string
     ip          = string
+    mac_address = string
     ssh_keys    = list(string)
   })
 }
