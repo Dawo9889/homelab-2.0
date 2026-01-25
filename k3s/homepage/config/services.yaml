@@ -1,13 +1,64 @@
-- Applications:
-    - Homepage:
-        href: https://homepage.k3s.dawo9889-homelab.ovh
-        description: Homepage dashboard
-        icon: homepage
-    - ArgoCD:
-        href: https://argocd.k3s.dawo9889-homelab.ovh
-        description: ArgoCD dashboard
-        icon: argo-cd
-    - Wallos:
-        href: https://wallos.k3s.dawo9889-homelab.ovh
-        description: Wallos dashboard
-        icon: wallos
+---
+- Media:
+  - Immich:
+      icon: immich.png
+      href: "https://immich.dawo9889-homelab.ovh"
+      description: Photos storage
+  - Nextcloud:
+      href: https://nextcloud.dawo9889-homelab.ovh
+      icon: nextcloud.png
+      description: Home files storage
+  - TrueNas:
+      icon: truenas.png
+      href: "https://truenas.dawo9889-homelab.ovh"
+      description: NAS
+
+- Internet:
+  - Main Router:
+      icon: unifi-dark.png
+      href: https://unifi.ui.com/
+  - Access Point:
+      icon: unifi-dark.png
+      href: http://192.168.1.4
+  - Second Router:
+      icon: openwrt.png
+      href: http://192.168.1.2
+  - Third Router:
+      icon: tenda.png
+      href: http://192.168.1.3
+  - Nginx Proxy Manager:
+      icon: nginx-proxy-manager.png
+      href: "https://npm.dawo9889-homelab.ovh"
+  - Adguard:
+      icon: adguard-home.png
+      href: "https://adguard.dawo9889-homelab.ovh"
+  - Adguard2:
+      icon: adguard-home.png
+      href: "https://adguard2.dawo9889-homelab.ovh"
+
+- Infrastructure:
+  - Proxmox Main:
+      icon: proxmox.png
+      href: https://pve.dawo9889-homelab.ovh
+  - Proxmox N100:
+      icon: proxmox.png
+      href: https://pve2.dawo9889-homelab.ovh
+  - Tailscale:
+      href: https://login.tailscale.com/admin/machines
+      icon: tailscale.png
+  - Cloudflare:
+      href: https://dash.cloudflare.com
+      icon: cloudflare.png
+  - Vaultwarden:
+      icon: vaultwarden.png
+      href: "https://vaultwarden.dawo9889-homelab.ovh"
+
+- Homelab:
+  - ArgoCD:
+      icon: argo-cd.png
+      href: "https://argocd.k3s.dawo9889-homelab.ovh"
+      description: ArgoCD
+  - Wallos:
+      icon: wallos.png
+      href: "https://wallos.k3s.dawo9889-homelab.ovh"
+      description: Wallos
