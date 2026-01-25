@@ -25,10 +25,17 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/www/html/db
+              subPath: db
+            - name: logos
+              mountPath: /var/www/html/images/uploads/logos
+              subPath: logos
           env:
             - name: TZ
               value: "Europe/Warsaw"
       volumes:
         - name: data
+          persistentVolumeClaim:
+            claimName: wallos-data
+        - name: logos
           persistentVolumeClaim:
             claimName: wallos-data
