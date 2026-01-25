@@ -24,7 +24,7 @@ spec:
               containerPort: 80
           volumeMounts:
             - name: data
-              mountPath: /data
+              mountPath: /var/www/html/db
           env:
             - name: TZ
               value: "Europe/Warsaw"
