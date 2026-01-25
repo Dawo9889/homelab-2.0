@@ -1,0 +1,7 @@
+title: Homelab
+startUrl: https://homepage.k3s.dawo9889-homelab.ovh
+theme: dark
+layout:
+  - Services:
+      style: columns
+      max_columns: 3

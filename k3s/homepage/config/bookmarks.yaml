@@ -1,0 +1,8 @@
+bookmarks:
+  - Homelab:
+      - ArgoCD:
+          icon: argocd
+          href: https://argocd.k3s.dawo9889-homelab.ovh
+      - Homepage:
+          icon: home
+          href: https://homepage.k3s.dawo9889-homelab.ovh

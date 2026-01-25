@@ -1,0 +1,8 @@
+widgets:
+  - resources:
+      cpu: true
+      memory: true
+      disk: true
+  - search:
+      provider: duckduckgo
+      target: _blank

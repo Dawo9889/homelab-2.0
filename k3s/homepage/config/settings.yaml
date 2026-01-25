@@ -1,0 +1,4 @@
+color: slate
+providers:
+  openweathermap: null
+language: en

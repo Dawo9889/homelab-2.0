@@ -1,0 +1,9 @@
+services:
+  - Media:
+      - Wallos:
+          icon: https://raw.githubusercontent.com/bellamy/wallos/main/public/android-icon-96x96.png
+          href: https://wallos.k3s.dawo9889-homelab.ovh
+          description: Subscription manager
+          status:
+            - type: http
+              url: https://wallos.k3s.dawo9889-homelab.ovh

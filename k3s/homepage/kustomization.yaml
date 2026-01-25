@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: homepage
+resources:
+  - namespace.yaml
+  - secret.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+configMapGenerator:
+  - name: homepage-config-homepage
+    files:
+      - config/homepage.yaml
+  - name: homepage-config-services
+    files:
+      - config/services.yaml
+  - name: homepage-config-widgets
+    files:
+      - config/widgets.yaml
+  - name: homepage-config-bookmarks
+    files:
+      - config/bookmarks.yaml
+  - name: homepage-config-settings
+    files:
+      - config/settings.yaml
+generatorOptions:
+  disableNameSuffixHash: true
