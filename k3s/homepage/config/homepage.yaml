@@ -1,7 +1,43 @@
 title: Homelab
 startUrl: https://homepage.k3s.dawo9889-homelab.ovh
 theme: dark
+showStats: true
+showTime: true
+showDate: true
+showGreeting: true
+
 layout:
-  - Services:
-      style: columns
-      max_columns: 3
+  - "My Homelab":
+    icon: "fas fa-server"
+    layout:
+      - "Homelab":
+        layout:
+          - "Services":
+            style: "row"
+            max_columns: 4
+          - "Kubernetes":
+            style: "row"
+            max_columns: 4
+      - "Infrastructure":
+        layout:
+          - "Services":
+            style: "row"
+            max_columns: 4
+          - "Network":
+            style: "row"
+            max_columns: 4
+  - "Media":
+    icon: "fas fa-photo-video"
+    layout:
+      - "Services":
+        style: "row"
+        max_columns: 3
+  - "Bookmarks":
+    icon: "fas fa-bookmark"
+    layout:
+      - "Developer":
+        style: "row"
+        max_columns: 4
+      - "Infrastructure":
+        style: "row"
+        max_columns: 4

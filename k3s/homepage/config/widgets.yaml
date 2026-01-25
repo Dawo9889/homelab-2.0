@@ -1,3 +1,13 @@
+- resources:
+    label: "k3s"
+    cpu: true
+    memory: true
+    storage: true
+- datetime:
+    text_size: "xl"
+    format:
+      timeStyle: "medium"
+      dateStyle: "medium"
 - search:
     provider: duckduckgo
     target: _blank
