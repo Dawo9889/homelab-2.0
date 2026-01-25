@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wallos-data
+  namespace: wallos
+  labels:
+    app: wallos
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  # Use the cluster's default StorageClass by omitting storageClassName
