@@ -1,4 +1,15 @@
 ---
+- name: Install nfs common on all nodes
+  hosts: all
+  become: true
+  tasks:
+    - name: Install NFS client tools
+      ansible.builtin.package:
+        name: nfs-common
+        state: present
+        update_cache: yes
+
+
 - name: Post Install K3s Setup
   hosts: server
   become: true
@@ -6,6 +17,12 @@
     kubeconfig_path: /etc/rancher/k3s/k3s.yaml
 
   tasks:
+    - name: Install NFS client on every node
+      ansible.builtin.package:
+        name: nfs-common
+        state: present
+        update_cache: yes
+
     - name: Install helm
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -85,30 +102,27 @@
       ansible.builtin.pause:
         seconds: 20
 
-    - name: Configure IPAddressPool for MetalLB
-      kubernetes.core.k8s:
-        kubeconfig: "{{ kubeconfig_path }}"
-        state: present
-        definition:
-          apiVersion: metallb.io/v1beta1
-          kind: IPAddressPool
-          metadata:
-            name: default-address-pool
-            namespace: metallb-system
-          spec:
-            addresses:
-            - 192.168.1.13-192.168.1.13
+    - name: Copy MetalLB IPAddressPool to server
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../files/metallb-ipaddresspool.yml"
+        dest: /tmp/metallb-ipaddresspool.yml
 
-    - name: Configure L2 Advertisement for MetalLB
+    - name: Apply MetalLB IPAddressPool
       kubernetes.core.k8s:
         kubeconfig: "{{ kubeconfig_path }}"
         state: present
-        definition:
-          apiVersion: metallb.io/v1beta1
-          kind: L2Advertisement
-          metadata:
-            name: default-l2-adv
-            namespace: metallb-system
+        src: /tmp/metallb-ipaddresspool.yml
+
+    - name: Copy MetalLB L2Advertisement to server
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../files/metallb-l2advert.yml"
+        dest: /tmp/metallb-l2advert.yml
+
+    - name: Apply MetalLB L2Advertisement
+      kubernetes.core.k8s:
+        kubeconfig: "{{ kubeconfig_path }}"
+        state: present
+        src: /tmp/metallb-l2advert.yml
 
     - name: Add emberstack Repository
       kubernetes.core.helm_repository:
@@ -122,25 +136,68 @@
         release_namespace: kube-system
         kubeconfig: "{{ kubeconfig_path }}"
 
-    - name: Generate Wildcard Certificate for Ingress
+    - name: Copy wildcard Certificate to server
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../files/wildcard-certificate.yml"
+        dest: /tmp/wildcard-certificate.yml
+
+    - name: Apply wildcard Certificate
       kubernetes.core.k8s:
         kubeconfig: "{{ kubeconfig_path }}"
         state: present
-        definition:
-          apiVersion: cert-manager.io/v1
-          kind: Certificate
-          metadata:
-            name: wildcard-k3s-dawo9889-homelab-ovh
-            namespace: cert-manager
-          spec:
-            secretTemplate:
-                annotations:
-                  reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-                  reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
-            secretName: wildcard-k3s-dawo9889-homelab-ovh-tls
-            issuerRef:
-              name: letsencrypt-cloudflare
-              kind: ClusterIssuer
-            dnsNames:
-              - "*.k3s.dawo9889-homelab.ovh"
-              - "k3s.dawo9889-homelab.ovh"
+        src: /tmp/wildcard-certificate.yml
+
+    - name: Add nfs-subdir-external-provisioner Repository
+      kubernetes.core.helm_repository:
+        name: nfs-subdir-external-provisioner
+        repo_url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+
+    - name: Install nfs-subdir-external-provisioner
+      kubernetes.core.helm:
+        name: nfs-provisioner
+        chart_ref: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+        release_namespace: nfs-provisioner
+        create_namespace: true
+        kubeconfig: "{{ kubeconfig_path }}"
+        values:
+          nfs:
+            server: "192.168.1.51"
+            path: "/mnt/pool/k3s-data"
+          storageClass:
+            name: nfs-client
+            defaultClass: true
+            reclaimPolicy: Retain
+
+    - name: Remove default status from local-path storage class
+      kubernetes.core.k8s_json_patch:
+        kubeconfig: "{{ kubeconfig_path }}"
+        kind: StorageClass
+        name: local-path
+        patch:
+          - op: add
+            path: "/metadata/annotations/storageclass.kubernetes.io~1is-default-class"
+            value: "false"
+
+    - name: Creeate namespace for ArgoCD
+      kubernetes.core.k8s:
+        kubeconfig: "{{ kubeconfig_path }}"
+        state: present
+        kind: Namespace
+        name: argocd
+
+    - name: Install ArgoCD
+      kubernetes.core.k8s:
+        kubeconfig: "{{ kubeconfig_path }}"
+        state: present
+        src: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+        namespace: argocd
+    - name: Copy ArgoCD setup file to server
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../files/argocd-setup.yml"
+        dest: /tmp/argocd-setup.yml
+
+    - name: Configure ArgoCD Setup
+      kubernetes.core.k8s:
+        kubeconfig: "{{ kubeconfig_path }}"
+        src: /tmp/argocd-setup.yml
+        state: present
