@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: beszel
+  namespace: beszel
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: beszel.k3s.dawo9889-homelab.ovh
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: beszel
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - beszel.k3s.dawo9889-homelab.ovh
+      secretName: beszel-tls
