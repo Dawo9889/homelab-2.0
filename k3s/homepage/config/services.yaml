@@ -62,3 +62,11 @@
       icon: wallos.png
       href: "https://wallos.k3s.dawo9889-homelab.ovh"
       description: Wallos
+  - Beszel:
+      icon: beszel.png
+      href: "https://beszel.k3s.dawo9889-homelab.ovh"
+      description: Beszel
+  - Infisical:
+      icon: infisical.png
+      href: "https://infisical.dawo9889-homelab.ovh"
+      description: Infisical
