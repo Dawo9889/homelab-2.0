@@ -26,19 +26,34 @@ spec:
             - secretRef:
                 name: homepage-secrets
           volumeMounts:
-            - name: config
-              mountPath: /app/config
+            - name: homepage-config-homepage
+              mountPath: /app/config/homepage.yaml
+              subPath: homepage.yaml
+            - name: homepage-config-services
+              mountPath: /app/config/services.yaml
+              subPath: services.yaml
+            - name: homepage-config-widgets
+              mountPath: /app/config/widgets.yaml
+              subPath: widgets.yaml
+            - name: homepage-config-bookmarks
+              mountPath: /app/config/bookmarks.yaml
+              subPath: bookmarks.yaml
+            - name: homepage-config-settings
+              mountPath: /app/config/settings.yaml
+              subPath: settings.yaml
       volumes:
-        - name: config
-          projected:
-            sources:
-              - configMap:
-                  name: homepage-config-homepage
-              - configMap:
-                  name: homepage-config-services
-              - configMap:
-                  name: homepage-config-widgets
-              - configMap:
-                  name: homepage-config-bookmarks
-              - configMap:
-                  name: homepage-config-settings
+        - name: homepage-config-homepage
+          configMap:
+            name: homepage-config-homepage
+        - name: homepage-config-services
+          configMap:
+            name: homepage-config-services
+        - name: homepage-config-widgets
+          configMap:
+            name: homepage-config-widgets
+        - name: homepage-config-bookmarks
+          configMap:
+            name: homepage-config-bookmarks
+        - name: homepage-config-settings
+          configMap:
+            name: homepage-config-settings

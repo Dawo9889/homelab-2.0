@@ -1,9 +1,13 @@
-services:
-  - Media:
-      - Wallos:
-          icon: https://raw.githubusercontent.com/bellamy/wallos/main/public/android-icon-96x96.png
-          href: https://wallos.k3s.dawo9889-homelab.ovh
-          description: Subscription manager
-          status:
-            - type: http
-              url: https://wallos.k3s.dawo9889-homelab.ovh
+- Applications:
+    - Homepage:
+        href: https://homepage.k3s.dawo9889-homelab.ovh
+        description: Homepage dashboard
+        icon: homepage
+    - ArgoCD:
+        href: https://argocd.k3s.dawo9889-homelab.ovh
+        description: ArgoCD dashboard
+        icon: argo-cd
+    - Wallos:
+        href: https://wallos.k3s.dawo9889-homelab.ovh
+        description: Wallos dashboard
+        icon: wallos
