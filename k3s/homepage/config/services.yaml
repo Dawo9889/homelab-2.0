@@ -66,6 +66,14 @@
       icon: beszel.png
       href: "https://beszel.k3s.dawo9889-homelab.ovh"
       description: Beszel
+  - Kuma:
+      icon: uptime-kuma.png
+      href: "https://kuma.k3s.dawo9889-homelab.ovh"
+      description: Uptime monitoring
+  - Gotify:
+      icon: gotify.png
+      href: "https://gotify.k3s.dawo9889-homelab.ovh"
+      description: Notification server
   - Infisical:
       icon: infisical.png
       href: "https://infisical.dawo9889-homelab.ovh"
