@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kuma
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:Dawo9889/homelab-2.0.git
+    path: ./k3s/kuma
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kuma
+  syncPolicy:
+    automated:
+      enabled: true
