@@ -8,6 +8,10 @@
       href: https://nextcloud.dawo9889-homelab.ovh
       icon: nextcloud.png
       description: Home files storage
+  - Syncthing:
+      href: https://syncthing.dawo9889-homelab.ovh
+      icon: syncthing.png
+      description: File synchronization
   - TrueNas:
       icon: truenas.png
       href: "https://truenas.dawo9889-homelab.ovh"
@@ -43,6 +47,10 @@
   - Proxmox N100:
       icon: proxmox.png
       href: https://pve2.dawo9889-homelab.ovh
+  - Home Assistant:
+      icon: home-assistant.png
+      href: https://haos.dawo9889-homelab.ovh
+      description: Home automation
   - Tailscale:
       href: https://login.tailscale.com/admin/machines
       icon: tailscale.png
@@ -78,3 +86,7 @@
       icon: infisical.png
       href: "https://infisical.dawo9889-homelab.ovh"
       description: Infisical
+  - MinIO:
+      icon: minio.png
+      href: "https://minio.dawo9889-homelab.ovh"
+      description: Object storage
